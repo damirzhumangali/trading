@@ -69,3 +69,4 @@ Update them in [src/lib/constants.ts](/Users/damirfile/Desktop/Новая пап
 - Confirm the marquees loop without seams.
 - Confirm the accordion opens cleanly on desktop and mobile.
 # trading
+# trading
