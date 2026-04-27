@@ -10,13 +10,10 @@ import {
   CTA_HREF,
   CTA_LABEL,
   CTA_SUB,
-  CTA_VIDEO_TODO,
   FOOTER_LINKS,
 } from "@/lib/constants";
 
 export function CtaFooter() {
-  const hasVideo = Boolean(CTA_BG_VIDEO) && !CTA_BG_VIDEO.startsWith("[TODO");
-
   return (
     <section id="cta" className="relative flex min-h-[100vh] flex-col items-center justify-center overflow-hidden">
       <VideoBackground
@@ -25,14 +22,6 @@ export function CtaFooter() {
       />
       <div className="absolute inset-x-0 top-0 h-[200px] gradient-fade-t" />
       <div className="absolute bottom-0 inset-x-0 h-[200px] gradient-fade-b" />
-
-      {!hasVideo ? (
-        <div className="absolute left-6 top-6 z-10">
-          <span className="liquid-glass rounded-full px-4 py-1.5 text-xs text-foreground/80">
-            {CTA_VIDEO_TODO}
-          </span>
-        </div>
-      ) : null}
 
       <div className="relative z-10 flex flex-col items-center justify-center px-6 py-28 text-center md:py-36">
         <BlurText
@@ -57,7 +46,7 @@ export function CtaFooter() {
             </a>
           </Button>
           <Button variant="heroGlass" asChild>
-            <a href="#faq">Nos tarifs</a>
+            <a href="#faq">Pricing</a>
           </Button>
         </div>
       </div>

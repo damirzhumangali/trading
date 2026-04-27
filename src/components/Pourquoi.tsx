@@ -8,7 +8,7 @@ export function Pourquoi() {
     <section id="pourquoi" className="relative border-t border-border/40 py-28 md:py-40">
       <div className="mx-auto max-w-[var(--max)] px-[var(--gutter)] text-center">
         <span className="liquid-glass rounded-full px-4 py-1.5 text-xs text-foreground/80">
-          Pourquoi nous
+          Why Atelier
         </span>
         <BlurText
           text={POURQUOI_HEADLINE}

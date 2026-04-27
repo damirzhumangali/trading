@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { VideoBackground } from "@/components/VideoBackground";
-import { STATS, STATS_BG_VIDEO, STATS_VIDEO_TODO } from "@/lib/constants";
+import { STATS, STATS_BG_VIDEO } from "@/lib/constants";
 
 function AnimatedStatValue({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -49,8 +49,6 @@ function AnimatedStatValue({ value }: { value: string }) {
 }
 
 export function Stats() {
-  const hasVideo = Boolean(STATS_BG_VIDEO) && !STATS_BG_VIDEO.startsWith("[TODO");
-
   return (
     <section className="relative overflow-hidden py-32 md:py-44">
       <VideoBackground
@@ -59,14 +57,6 @@ export function Stats() {
       />
       <div className="absolute inset-x-0 top-0 h-[200px] gradient-fade-t" />
       <div className="absolute bottom-0 inset-x-0 h-[200px] gradient-fade-b" />
-
-      {!hasVideo ? (
-        <div className="absolute left-6 top-6 z-10">
-          <span className="liquid-glass rounded-full px-4 py-1.5 text-xs text-foreground/80">
-            {STATS_VIDEO_TODO}
-          </span>
-        </div>
-      ) : null}
 
       <div className="liquid-glass relative z-10 mx-[var(--gutter)] rounded-[32px] p-10 md:mx-auto md:max-w-[var(--max)] md:p-14">
         <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">

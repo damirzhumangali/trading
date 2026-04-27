@@ -4,7 +4,7 @@ import type { RefObject } from "react";
 export type ScrubSequenceProps = {
   framesPath: string;
   frameCount: number;
-  ext?: "jpg" | "webp";
+  ext?: "jpg" | "webp" | "svg";
   className?: string;
   scrollTargetRef: RefObject<HTMLElement>;
 };
@@ -14,7 +14,7 @@ const pad4 = (n: number) => String(n).padStart(4, "0");
 export function ScrubSequence({
   framesPath,
   frameCount,
-  ext = "jpg",
+  ext = "svg",
   className,
   scrollTargetRef,
 }: ScrubSequenceProps) {

@@ -36,7 +36,7 @@ export function Testimonials() {
     <section id="testimonials" className="relative py-28 md:py-40">
       <div className="mx-auto max-w-[var(--max)] px-[var(--gutter)]">
         <span className="liquid-glass rounded-full px-4 py-1.5 text-xs text-foreground/80">
-          Témoignages
+          Client voices
         </span>
         <BlurText
           text={TESTIMONIALS_HEADLINE}

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import type { RefObject } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, Play } from "lucide-react";
 import { BlurText } from "@/components/BlurText";
 import { ScrubSequence } from "@/components/ScrubSequence";
+import { VideoScrubSequence } from "@/components/VideoScrubSequence";
 import { Button } from "@/components/ui/button";
 import {
   BRAND_TAGLINE,
@@ -15,26 +15,20 @@ import {
   HERO_CTA_SECONDARY,
   HERO_HEADLINE,
   HERO_SUB,
+  HERO_VIDEO_PATH,
   HERO_VIDEO_SUMMARY,
   NEW_LABEL,
   PARTNERS,
   TRUSTED_BY_LABEL,
 } from "@/lib/constants";
+import { useState } from "react";
 
 type HeroProps = {
   scrollRef: RefObject<HTMLElement>;
 };
 
 export function Hero({ scrollRef }: HeroProps) {
-  const [hasFrames, setHasFrames] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const image = new Image();
-    image.onload = () => setHasFrames(true);
-    image.onerror = () => setHasFrames(false);
-    image.src = `${FRAMES_PATH}/frame_0001.${FRAME_EXT}`;
-  }, []);
-
+  const [useFrameFallback, setUseFrameFallback] = useState(false);
   const scrollIntoSequence = () => {
     if (!scrollRef.current) {
       return;
@@ -49,26 +43,32 @@ export function Hero({ scrollRef }: HeroProps) {
   return (
     <section ref={scrollRef} id="top" className="relative h-[250vh] bg-background">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <ScrubSequence
-          framesPath={FRAMES_PATH}
-          frameCount={FRAME_COUNT}
-          ext={FRAME_EXT}
-          scrollTargetRef={scrollRef}
-          className="absolute inset-0 z-0 h-full w-full"
-        />
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(90%_70%_at_50%_18%,rgba(230,215,189,0.10),transparent_48%),radial-gradient(52%_42%_at_18%_78%,rgba(120,61,37,0.24),transparent_64%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.10)_28%,rgba(20,15,13,0.92)_100%)]" />
+        <div className="absolute left-[8%] top-[18%] z-0 h-40 w-40 rounded-full bg-primary/15 blur-3xl" />
+        <div className="absolute bottom-[16%] right-[10%] z-0 h-56 w-56 rounded-full bg-secondary/22 blur-3xl" />
+        {HERO_VIDEO_PATH && !useFrameFallback ? (
+          <VideoScrubSequence
+            videoSrc={HERO_VIDEO_PATH}
+            posterSrc={`${FRAMES_PATH}/frame_0001.${FRAME_EXT}`}
+            scrollTargetRef={scrollRef}
+            onDecodeError={() => setUseFrameFallback(true)}
+            className="absolute inset-0 z-[1] h-full w-full"
+          />
+        ) : (
+          <ScrubSequence
+            framesPath={FRAMES_PATH}
+            frameCount={FRAME_COUNT}
+            ext={FRAME_EXT}
+            scrollTargetRef={scrollRef}
+            className="absolute inset-0 z-[1] h-full w-full"
+          />
+        )}
 
         <p className="sr-only">{HERO_VIDEO_SUMMARY}</p>
 
-        <div className="absolute inset-0 z-[1] bg-[radial-gradient(120%_80%_at_50%_60%,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
-        <div className="absolute bottom-0 inset-x-0 z-[2] h-[40vh] gradient-fade-b" />
-
-        {import.meta.env.DEV && hasFrames === false ? (
-          <div className="absolute inset-x-0 top-28 z-[12] flex justify-center px-6">
-            <div className="liquid-glass-strong rounded-full px-5 py-2 text-sm text-foreground/90">
-              Aucun frame détecté. Ajoutez <span className="font-medium">input/source.mp4</span> puis lancez la commande ffmpeg du README.
-            </div>
-          </div>
-        ) : null}
+        <div className="absolute inset-0 z-[2] bg-[radial-gradient(120%_80%_at_50%_60%,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
+        <div className="absolute inset-0 z-[3] noise opacity-35" />
+        <div className="absolute bottom-0 inset-x-0 z-[4] h-[40vh] gradient-fade-b" />
 
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
           <motion.div

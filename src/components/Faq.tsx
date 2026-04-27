@@ -19,7 +19,7 @@ export function Faq() {
           </span>
           <BlurText
             as="h2"
-            text="Questions fréquentes."
+            text="Frequently asked."
             className="mt-4 font-display text-5xl leading-[0.9] tracking-tight uppercase md:text-6xl"
           />
           <motion.p
@@ -32,7 +32,7 @@ export function Faq() {
             {FAQ_SUB}
           </motion.p>
           <Button asChild variant="heroGlass" className="mt-8">
-            <a href={CTA_HREF}>Nous contacter</a>
+            <a href={CTA_HREF}>Contact us</a>
           </Button>
         </div>
 
